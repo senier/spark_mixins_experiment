@@ -3,7 +3,7 @@ package body Use_Abstract with SPARK_Mode is
    function Create (Buffer_Size : Natural;
                     Remote_Addr : String) return T
    is
-      Result : T := (Abstract_Type.T with FD => 42, others => <>);
+      Result : T := (Abstract_Type.Default_Value with FD => 42, others => <>);
    begin
       Abstract_Type.Initialize (Result, Buffer_Size);
       return Result;

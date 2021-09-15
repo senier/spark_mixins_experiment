@@ -2,6 +2,8 @@ with Ada.Streams;
 package Abstract_Type with SPARK_Mode is
    type T is abstract tagged private;
 
+   Default_Value : constant T;
+
    function Channel_Has_Data (Context : T) return Boolean is abstract;
 
    procedure Read (Context : in out T;
@@ -18,5 +20,7 @@ private
       State       : Natural;
       Buffer_Size : Natural;
    end record;
-end Abstract_Type;
 
+   Default_Value : constant T := (State => 42, Buffer_Size => 43);
+
+end Abstract_Type;
