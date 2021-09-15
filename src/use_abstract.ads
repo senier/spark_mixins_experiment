@@ -6,6 +6,7 @@ package Use_Abstract with Elaborate_Body, SPARK_Mode is
 
    overriding
    function Channel_Has_Data (Context : T) return Boolean;
+
    overriding
    procedure Read (Context : in out T;
                    Buffer  :    out Ada.Streams.Stream_Element_Array;
@@ -15,9 +16,12 @@ package Use_Abstract with Elaborate_Body, SPARK_Mode is
                     Remote_Addr : String) return T;
 private
 
+   type Stats_Type is mod 2**32;
+
    type T is new Abstract_Type.T with
    record
       FD : Integer;
+      Stats : Stats_Type;
    end record;
 
 end Use_Abstract;
