@@ -1,12 +1,17 @@
-package body Abstract_Type
-   with SPARK_Mode
+package body Abstract_Type with SPARK_Mode
 is
-
-   function Create (Buffer_Size : Natural) return T'Class is (T'(Buffer_Size => Buffer_Size));
-
-   procedure Run (Context : in out T) is
+   procedure Initialize (Context : in out T'Class;
+                         Size    :        Natural) is
    begin
-      null;
-   end Run;
+      Context.Buffer_Size := Size;
+   end Initialize;
 
+   procedure Run (Context : in out T'Class)
+   is
+   begin
+      while Context.State < Natural'Last loop
+         Context.State := Context.State + 1;
+      end loop;
+   end Run;
 end Abstract_Type;
+

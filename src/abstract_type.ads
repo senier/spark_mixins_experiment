@@ -1,25 +1,22 @@
 with Ada.Streams;
+package Abstract_Type with SPARK_Mode is
+   type T is abstract tagged private;
 
-package Abstract_Type
-   with SPARK_Mode
-is
+   function Channel_Has_Data (Context : T) return Boolean is abstract;
 
-   type T is tagged private;
-
-   function Create (Buffer_Size : Natural) return T'Class;
-
-   function Channel_Has_Data (Context : T) return Boolean is (raise Program_Error);
    procedure Read (Context : in out T;
                    Buffer  :    out Ada.Streams.Stream_Element_Array;
-                   Length  :    out Ada.Streams.Stream_Element_Offset) is null;
+                   Length  :    out Ada.Streams.Stream_Element_Offset) is abstract;
 
-   procedure Run (Context : in out T);
+   procedure Initialize (Context : in out T'Class;
+                         Size    :        Natural);
+   procedure Run (Context : in out T'Class);
 
 private
-
-   type T is tagged
+   type T is abstract tagged
    record
-      Buffer_Size: Natural;
+      State       : Natural;
+      Buffer_Size : Natural;
    end record;
-
 end Abstract_Type;
+
